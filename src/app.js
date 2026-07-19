@@ -18,7 +18,8 @@ const adRoutes = require('./routes/ad.routes');
 const publisherRoutes = require('./routes/publisher.routes');
 
 const app = express();
-
+const seedRoutes = require('./routes/seed.routes');
+app.use('/api', seedRoutes);
 // --- Security & parsing ---
 // ...alongside your other route imports
 
