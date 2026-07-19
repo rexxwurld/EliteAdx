@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EliteAdx — Publisher Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/dashboard.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body>
+
+<div class="sidebar-overlay"></div>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">E</div>
+      <div>
+        <div class="brand-name">EliteAdx</div>
+        <div class="brand-tag">Publisher</div>
+      </div>
+    </div>
+
+    <nav>
+      <div class="nav-section-label">Inventory</div>
+      <div class="nav-item active" data-view="overview"><span class="nav-icon">◆</span> Overview</div>
+      <div class="nav-item" data-view="sites"><span class="nav-icon">▤</span> My Sites</div>
+      <div class="nav-item" data-view="analytics"><span class="nav-icon">▲</span> Analytics</div>
+
+      <div class="nav-section-label">Earnings</div>
+      <div class="nav-item" data-view="payouts"><span class="nav-icon">◈</span> Payouts</div>
+      <div class="nav-item" data-view="settings"><span class="nav-icon">⚙</span> Settings</div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="live-pulse"><span class="pulse-dot"></span> Live</div>
+      <div class="logout-row" id="logoutRow">⎋ Logout</div>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- ================= OVERVIEW ================= -->
+    <div class="view active" id="view-overview">
+      <div class="topbar">
+        <div class="topbar-left">
+          <div class="hamburger">☰</div>
+          <div>
+            <div class="page-title">Overview</div>
+            <div class="page-sub">How is your inventory earning right now?</div>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <div class="search-box">🔍 Search…</div>
+          <div class="icon-btn">🔔<span class="badge-dot">2</span></div>
+          <div class="avatar" id="logoutBtn" style="cursor:pointer;" title="Click to sign out">PU</div>
+        </div>
+      </div>
+
+      <div class="notif-strip">
+        <div class="notif-chip"><span class="dot amber"></span> Ad units under review</div>
+        <div class="notif-chip"><span class="dot teal"></span> New advertisers matched to your site</div>
+      </div>
+
+      <div class="qa-row">
+        <div class="qa-btn primary">➕ Add Ad Unit</div>
+        <div class="qa-btn" id="qaRequestPayout">💳 Request Payout</div>
+        <div class="qa-btn">📄 Update Payment Info</div>
+        <div class="qa-btn">📊 View Site Stats</div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">▤</span></div><div class="kpi-value" id="kpi-active-units">—</div><div class="kpi-label">Active Ad Units</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">💰</span></div><div class="kpi-value" id="kpi-total-earnings">—</div><div class="kpi-label">Total Earnings</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">👀</span></div><div class="kpi-value" id="kpi-impressions-served">—</div><div class="kpi-label">Impressions Served</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">🖱️</span></div><div class="kpi-value" id="kpi-total-clicks">—</div><div class="kpi-label">Total Clicks</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">📈</span></div><div class="kpi-value" id="kpi-average-ctr">—</div><div class="kpi-label">Average CTR</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">🎯</span></div><div class="kpi-value" id="kpi-ecpm">—</div><div class="kpi-label">Average eCPM</div></div>
+      </div>
+
+      <div class="charts-row">
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Earnings<span class="sub">last 30 days</span></div></div>
+          <div class="chart-wrap"><canvas id="chartEarnings"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Fill Rate<span class="sub">per day</span></div></div>
+          <div class="chart-wrap"><canvas id="chartFillRate"></canvas></div>
+        </div>
+      </div>
+
+      <div class="charts-row-2">
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Impressions<span class="sub">daily volume</span></div></div>
+          <div class="chart-wrap"><canvas id="chartImpressions"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Clicks & CTR<span class="sub">daily</span></div></div>
+          <div class="chart-wrap"><canvas id="chartClicks"></canvas></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Recent Activity</div>
+          <div class="tabs-row">
+            <button class="tab-btn active" onclick="switchActivity(this,'act-units')">Ad Units</button>
+            <button class="tab-btn" onclick="switchActivity(this,'act-payouts')">Payouts</button>
+            <button class="tab-btn" onclick="switchActivity(this,'act-traffic')">Traffic</button>
+          </div>
+        </div>
+
+        <div id="act-units" class="activity-table">
+          <table>
+            <thead><tr><th>Ad Unit</th><th>Site</th><th>Impressions</th><th>Status</th></tr></thead>
+            <tbody id="act-units-body"></tbody>
+          </table>
+        </div>
+
+        <div id="act-payouts" class="activity-table" style="display:none;">
+          <table>
+            <thead><tr><th>Date</th><th>Amount</th><th>Method</th><th>Status</th></tr></thead>
+            <tbody><tr class="empty-row"><td colspan="4">No data yet</td></tr></tbody>
+          </table>
+        </div>
+
+        <div id="act-traffic" class="activity-table" style="display:none;">
+          <table>
+            <thead><tr><th>Site</th><th>Country</th><th>Impressions</th><th>Trend</th></tr></thead>
+            <tbody><tr class="empty-row"><td colspan="4">No data yet</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel section-gap">
+        <div class="panel-header">
+          <div class="panel-title">My Ad Units</div>
+          <span class="panel-link" onclick="document.querySelector('.nav-item[data-view=sites]').click()">View all ad units →</span>
+        </div>
+        <table>
+          <thead><tr><th>Ad Unit</th><th>Site</th><th>Status</th><th>Impressions</th><th>Clicks</th><th>Earnings</th></tr></thead>
+          <tbody id="my-ad-units-body"></tbody>
+        </table>
+      </div>
+
+      <div class="perf-grid">
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Top Earning Sites</div></div>
+          <div id="top-sites"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Top Ad Units</div></div>
+          <div id="top-ad-units"></div>
+        </div>
+      </div>
+
+      <div class="panel section-gap">
+        <div class="panel-header"><div class="panel-title">Earnings Summary</div></div>
+        <div class="fin-grid" style="margin-top:0;margin-bottom:0;">
+          <div class="kpi-card fin-card"><div class="kpi-value" id="e-total"></div><div class="kpi-label">Total Earned</div></div>
+          <div class="kpi-card fin-card"><div class="kpi-value" id="e-available"></div><div class="kpi-label">Available Balance</div></div>
+          <div class="kpi-card fin-card"><div class="kpi-value mono" style="color:var(--amber);" id="e-pending"></div><div class="kpi-label">Pending Earnings</div></div>
+          <div class="kpi-card fin-card"><div class="kpi-value" style="color:var(--teal);" id="e-month"></div><div class="kpi-label">This Month</div></div>
+          <div class="kpi-card fin-card"><div class="kpi-value" id="e-next-payout"></div><div class="kpi-label">Next Payout Date</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= MY SITES ================= -->
+    <div class="view" id="view-sites">
+      <div class="topbar">
+        <div>
+          <div class="page-title">My Sites</div>
+          <div class="page-sub">Sites and ad units you manage</div>
+        </div>
+        <div class="topbar-right">
+          <div class="qa-btn primary" style="margin:0;">➕ Add Ad Unit</div>
+        </div>
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Ad Unit</th><th>Site</th><th>Status</th><th>Impressions</th><th>Clicks</th><th>CTR</th><th>Earnings</th></tr></thead>
+          <tbody id="sites-view-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ================= PAYOUTS ================= -->
+    <div class="view" id="view-payouts">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Payouts</div>
+          <div class="page-sub">Payout history and payment method</div>
+        </div>
+        <div class="topbar-right">
+          <div class="qa-btn primary" style="margin:0;" id="payoutsViewRequestBtn">💳 Request Payout</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-title">Payout History</div></div>
+        <table>
+          <thead><tr><th>Date</th><th>Amount</th><th>Method</th><th>Status</th></tr></thead>
+          <tbody><tr class="empty-row"><td colspan="4">No data yet</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ================= STUBS ================= -->
+    <div class="view" id="view-analytics"><div class="topbar"><div><div class="page-title">Analytics</div><div class="page-sub">Deep traffic and revenue breakdowns</div></div></div><div class="panel"><div class="stub"><div class="stub-icon">▲</div><div class="stub-title">Advanced analytics</div>Segment earnings by site, geo, device, and ad unit here.</div></div></div>
+    <div class="view" id="view-settings"><div class="topbar"><div><div class="page-title">Settings</div><div class="page-sub">Account and payment preferences</div></div></div><div class="panel"><div class="stub"><div class="stub-icon">⚙</div><div class="stub-title">Account settings</div>Payment details, tax info, and notification preferences live here.</div></div></div>
+
+  </main>
+</div>
+
+<!-- ================= REQUEST PAYOUT MODAL ================= -->
+<div id="payoutModalOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;align-items:center;justify-content:center;">
+  <div class="panel" style="width:min(400px, 92vw);">
+    <div class="panel-header">
+      <div class="panel-title">Request Payout</div>
+      <span class="panel-link" id="payoutModalClose" style="cursor:pointer;">✕</span>
+    </div>
+    <form id="payoutForm" style="display:flex;flex-direction:column;gap:12px;padding:4px 0;">
+      <label>Amount (₦)
+        <input type="number" id="pf-amount" required min="100" style="width:100%;padding:8px;border-radius:6px;border:1px solid var(--border,#333);background:var(--bg-alt,#11151b);color:inherit;">
+      </label>
+      <label>Bank Name
+        <input type="text" id="pf-bank" required style="width:100%;padding:8px;border-radius:6px;border:1px solid var(--border,#333);background:var(--bg-alt,#11151b);color:inherit;">
+      </label>
+      <label>Account Number
+        <input type="text" id="pf-account" required style="width:100%;padding:8px;border-radius:6px;border:1px solid var(--border,#333);background:var(--bg-alt,#11151b);color:inherit;">
+      </label>
+      <div id="payoutFormError" style="color:#e5484d;display:none;font-size:13px;"></div>
+      <button type="submit" class="qa-btn primary" style="margin:0;justify-content:center;">Request Payout</button>
+    </form>
+  </div>
+</div>
+
+<script src="js/publisher.js"></script>
+</body>
+</html>

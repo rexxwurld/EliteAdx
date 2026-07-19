@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Privacy Policy - EliteAdx</title>
+
+<!-- GOOGLE FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="apple-touch-icon" href="logo.png">
+
+<style>
+/* RESET */
+* { margin:0; padding:0; box-sizing:border-box; }
+body{
+  font-family:'Inter', sans-serif;
+  background:#070724;
+  color:white;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+a{ color:#f5c542; text-decoration:none; }
+a:hover{ text-decoration:underline; }
+
+/* NAVBAR */
+.navbar{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:6.6vh;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 24px;
+  background:rgba(7,7,36,0.95);
+  backdrop-filter:blur(6px);
+  z-index:50;
+}
+.logo{
+  font-size:clamp(20px,4vw,32px);
+  font-weight:700;
+}
+.logo::first-letter{
+  background:#f5c542;
+  color:black;
+  padding:4px 10px;
+  border-radius:8px;
+  margin-right:4px;
+}
+.nav-links{
+  position:fixed;
+  top:6.6vh;
+  left:0; right:0;
+  background:#070724;
+  display:flex;
+  flex-direction:column;
+  padding:20px;
+  transform:translateX(100%);
+  transition:0.4s ease;
+}
+.nav-links.active{ transform:translateX(0); }
+.nav-links a{ color:white; padding:12px 0; text-decoration:none; }
+.headerContactus{
+  background:#f5c542; color:black; padding:12px; border-radius:8px;
+  margin-top:10px; text-align:center; font-weight:600;
+}
+/* HAMBURGER */
+.menu-icon{ width:30px; height:25px; position:relative; cursor:pointer; }
+.menu-icon span{
+  position:absolute; width:100%; height:2px; background:white; transition:0.3s;
+}
+.menu-icon span:nth-child(1){top:0;}
+.menu-icon span:nth-child(2){top:11px;}
+.menu-icon span:nth-child(3){top:22px;}
+.menu-icon.active span:nth-child(1){top:11px; transform:rotate(45deg);}
+.menu-icon.active span:nth-child(2){opacity:0;}
+.menu-icon.active span:nth-child(3){top:11px; transform:rotate(-45deg);}
+
+/* MAIN CONTENT */
+main{ margin-top:10vh; padding:20px; max-width:900px; margin-left:auto; margin-right:auto; }
+h1,h2,h3{ color:#f5c542; margin-top:20px; }
+p{ margin-top:10px; margin-bottom:10px; }
+
+/* LISTS */
+ul, ol{ margin-left:20px; margin-top:10px; margin-bottom:10px; }
+
+/* FOOTER */
+.footer {
+  display:flex; flex-direction:column; gap:30px; margin-top:60px; padding:20px;
+}
+.footer span.logo { font-size:clamp(20px,4vw,28px); font-weight:700; }
+.footer .sections { display:flex; flex-direction:column; gap:20px; }
+.footer span.title { font-weight:700; font-size:16px; color:white; display:block; margin-bottom:10px; }
+.footer ul { list-style:none; padding:0; margin:0; line-height:1.8; }
+.footer ul li { margin-bottom:8px; }
+.footer a { color:#a8a8a8; text-decoration:none; transition:color 0.3s ease; }
+.footer a:hover { color:#f5c542; }
+.footer .contact { color:#cfcfcf; }
+
+a{
+  text-decoration: none;
+}
+.adx{
+  color: gold;
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .nav-links{ padding:20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo"><a href="/">E</a> Elite<span class="adx">Adx</span></div>
+  <div class="nav-links" id="navLinks">
+    <a href="/verticals">Verticals</a>
+    <a href="/service">Services</a>
+    <a href="/aboutus">About</a>
+    <a href="/#fworm" class="headerContactus">Contact Us</a>
+    <a href="/login" class="headerContactus">Login</a>
+  </div>
+
+  <div class="menu-icon" id="menuIcon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<main>
+  <h1>Privacy Policy</h1>
+  <p><strong>Last updated:</strong> January 2026</p>
+
+  <h2>Overview</h2>
+  <p>At EliteAdx, your privacy matters to us. We aim to be transparent about the data we collect, why we collect it, and how it helps improve your experience. This policy is friendly, straightforward, and designed to match the style of our <a href="termsofservice.html">Terms of Service</a>.</p>
+
+  <h2>1. What Information We Collect</h2>
+  <p>We only collect information necessary to provide our advertising and marketing services effectively. This includes:</p>
+  <ul>
+    <li>Anonymous device information (like browser type, OS, and screen size)</li>
+    <li>Location info derived from IP address (never precise GPS without permission)</li>
+    <li>Interaction with ads to track conversions and improve campaigns</li>
+  </ul>
+
+  <h2>2. Cookies & Identifiers</h2>
+  <p>We use cookies and anonymous identifiers to help deliver relevant ads and measure performance. They are:</p>
+  <ul>
+    <li>Non-personally identifiable</li>
+    <li>Used only for ad targeting and analytics</li>
+    <li>Removable by adjusting your browser settings</li>
+  </ul>
+
+  <h2>3. How We Use Your Information</h2>
+  <p>The collected data helps us:</p>
+  <ul>
+    <li>Show ads that are more relevant to your interests</li>
+    <li>Track ad performance for advertisers</li>
+    <li>Improve the EliteAdx platform experience</li>
+  </ul>
+
+  <h2>4. Data Security</h2>
+  <p>We implement reasonable security measures to protect your data. Only authorized personnel can access information needed to run our services.</p>
+
+  <h2>5. Sharing & Third Parties</h2>
+  <p>We do not sell your personal data. Any sharing with third-party advertisers is strictly for campaign purposes and remains anonymous.</p>
+
+  <h2>6. Your Rights</h2>
+  <p>You can manage cookies or opt out of interest-based advertising. Contact us anytime if you have questions about your data or privacy.</p>
+
+  <h2>7. Updates to This Policy</h2>
+  <p>We may update this Privacy Policy from time to time. Continued use of our platform means you accept any changes.</p>
+
+
+  <!-- FOOTER -->
+  <div class="footer reveal delay-5">
+    <span class="logo">E Elite<span class="adx">Adx</span></span>
+    <span>Best traffic & advertisement platform in Africa.</span>
+
+    <div class="sections">
+      <div>
+        <span class="title">Company</span>
+        <ul>
+          <li><a href="/aboutus">About Us</a></li>
+          <li><a href="/career.html">Careers</a></li>
+          <li><a href="/partner">Partners</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="title">Legal</span>
+        <ul>
+          <li><a href="/privacypolicy">Privacy Policy</a></li>
+          <li><a href="/termsofservice">Terms of Service</a></li>
+          <li><a href="/cookie">Cookie Policy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="title">Contact Information</span>
+        <ul>
+          <li>26 Etta Agbor, Calabar</li>
+          <li>hello@eliteadx.io</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:20px; color:#cfcfcf; text-align:center;">
+      <span>© 2026 Elite Adx. All rights reserved.</span><br>
+      <a href="">facebook</a><a href="">twitter</a><a href="">instagram</a>
+    </div>
+  </div>
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>

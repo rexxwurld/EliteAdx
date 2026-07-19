@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="folder/logo.png" type="image/png">
+<link rel="apple-touch-icon" href="folder/logo.png">
+<title>EliteAdx</title>
+<style>
+/* RESET & BASE */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:#070724; color:white; overflow-x:hidden; position:relative; }
+
+/* BACKGROUND GLOW */
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(700px 500px at 25% 15%, rgba(99,210,255,0.3), transparent 60%),
+    radial-gradient(600px 400px at 80% 25%, rgba(59,130,246,0.25), transparent 60%),
+    radial-gradient(500px 500px at 50% 80%, rgba(147,197,253,0.18), transparent 60%);
+  z-index:-1;
+}
+html { scroll-behavior: smooth; }
+
+/* NAVBAR */
+.navbar {
+  position:fixed; top:0; left:0; width:100%; height:6.6vh;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:0 24px; backdrop-filter:blur(6px);
+  background:rgba(7,7,36,0.95); z-index:50;
+}
+.logo { font-size:clamp(20px,4vw,32px); font-weight:700; }
+.logo::first-letter { background:#f5c542; color:black; padding:4px 10px; border-radius:8px; margin-right:4px; }
+
+/* NAV LINKS */
+.nav-links {
+  position:fixed; top:6.6vh; left:0; right:0;
+  transform:translateX(100%); background:rgba(7,7,36,0.97);
+  display:flex; flex-direction:column; padding:20px;
+  transition:transform 0.5s ease; z-index:40;
+}
+.nav-links.active { transform:translateX(0); }
+.nav-links a { text-decoration:none; color:white; padding:12px 0; font-size:clamp(14px,2vw,16px); }
+.headerContactus { background:#f5c542; color:black; padding:12px; border-radius:8px; text-align:center; margin-top:10px; font-weight:600; }
+
+/* HAMBURGER */
+.menu-icon { width:30px; height:25px; position:relative; cursor:pointer; z-index:100; display:flex; flex-direction:column; justify-content:center; }
+.menu-icon span { position:absolute; width:100%; height:2px; background:white; transition:all 0.3s ease; }
+.menu-icon span:nth-child(1){top:0;} .menu-icon span:nth-child(2){top:11px;} .menu-icon span:nth-child(3){top:22px;}
+.menu-icon.active span:nth-child(1){top:11px; transform:rotate(45deg);}
+.menu-icon.active span:nth-child(2){opacity:0;}
+.menu-icon.active span:nth-child(3){top:11px; transform:rotate(-45deg);}
+
+/* MAIN HERO */
+main { margin-top:10vh; padding:0 20px; }
+.firstdiv {
+  min-height:calc(100vh - 6.6vh);
+  display:flex; flex-direction:column; align-items:center; justify-content:flex-start;
+  gap:30px; padding-top:60px; text-align:center;
+}
+.badge { font-size:clamp(12px,1.5vw,14px); color:#cfcfcf; }
+h1 { font-size:clamp(32px,6vw,44px); line-height:1.2; font-weight:700; }
+.gold { color:#f5c542; }
+p { font-size:clamp(16px,2vw,18px); max-width:600px; color:#cfcfcf; }
+
+/* BUTTONS */
+.buttons { display:flex; gap:15px; flex-wrap:wrap; justify-content:center; margin-top:10px; }
+.buttons a { padding:14px 22px; border-radius:8px; text-decoration:none; font-weight:600; }
+.primary { background:#f5c542; color:black; }
+.secondary { border:1px solid #444; color:white; }
+
+/* STATS 4 BOXES */
+.buttons.delay-4 {
+  display:grid; grid-template-columns:repeat(2,1fr); gap:20px; width:100%; max-width:800px;
+}
+.buttons.delay-4 > div {
+  background:rgba(255,255,255,0.05); padding:20px; border-radius:12px; text-align:center;
+}
+.buttons.delay-4 h2 { font-size:clamp(24px,3vw,28px); margin-bottom:5px; color:#f5c542; }
+.buttons.delay-4 span { font-size:clamp(12px,1.5vw,14px); color:#cfcfcf; }
+
+/* VERTICALS */
+.verticals {
+  display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+  gap:20px; max-width:900px; margin:30px auto 0 auto;
+}
+.verticals div {
+  background:rgba(255,255,255,0.05); padding:20px; border-radius:12px; text-align:center;
+  transition:transform 0.3s ease, box-shadow 0.3s ease;
+}
+.verticals div:hover { transform:translateY(-5px); box-shadow:0 10px 20px rgba(245,197,66,0.3); }
+.verticals h2 { font-size:clamp(20px,2.5vw,22px); margin-bottom:10px; color:#f5c542; }
+.verticals span { font-size:clamp(14px,1.8vw,16px); color:#cfcfcf; }
+
+/* FORM */
+form.form { display:flex; flex-direction:column; gap:15px; max-width:600px; margin:40px auto; }
+form input, form select {
+  width:100%; box-sizing: border-box; padding:12px; border-radius:8px; border:1px solid #ccc;
+}
+form button {
+  width:100%;
+  padding:14px;
+  border-radius:8px;
+  border:none;
+  background:#f5c542;
+  color:black;
+  font-weight:bold;
+  cursor:pointer;
+  transition:background 0.3s ease;
+}
+form button:hover { background:#e6b91f; }
+
+/* FEATURES LIST */
+.features-list {
+  list-style: none;
+  padding: 0;
+  margin: 25px 0 0;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 14px;
+}
+.features-list li {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px;
+  font-size: clamp(14px, 2vw, 16px);
+  color: #e5e5e5;
+  backdrop-filter: blur(6px);
+  width: 100%;
+  transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease;
+}
+.features-list li::before {
+  content: "✓";
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: #f5c542;
+  color: #000;
+  font-weight: 700;
+  font-size: 14px;
+}
+.features-list li:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(245,197,66,0.25);
+  border-color: rgba(245,197,66,0.6);
+}
+
+/* FOURTHDIV */
+.fourthdiv {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  padding: 40px 0;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.fourthdiv div {
+  background: rgba(255,255,255,0.05);
+  padding: 20px;
+  border-radius: 12px;
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.fourthdiv div:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 20px rgba(245,197,66,0.3);
+}
+.fourthdiv h2 { font-size: clamp(20px, 2.5vw, 22px); margin-bottom: 10px; color: #f5c542; }
+.fourthdiv span { font-size: clamp(14px, 1.8vw, 16px); color: #cfcfcf; }
+
+/* FOOTER */
+.footer {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 60px;
+  padding: 20px;
+}
+.footer span.logo {
+  font-size: clamp(20px, 4vw, 28px);
+  font-weight: 700;
+}
+.footer span.top1on {
+  font-weight: 700;
+  font-size: 16px;
+  color: white;
+  margin-bottom: 5px;
+  display: block;
+}
+.footer span.top2on {
+  font-size: 14px;
+  color: #cfcfcf;
+  display: block;
+  margin-bottom: 2px;
+}
+.footer ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 10px 0;
+  line-height: 1.8;
+}
+.footer ul li { margin-bottom: 8px; }
+.footer a { color:#a8a8a8; text-decoration:none; transition:color 0.3s ease; }
+.footer a:hover { color:#f5c542; }
+.footer .bottom {
+  text-align: center;
+  margin-top: 20px;
+  color: #cfcfcf;
+}
+
+/* SCROLL REVEAL */
+.reveal { opacity:0; transform:translateY(60px); transition: all 0.9s cubic-bezier(0.22,1,0.36,1);}
+.reveal.active { opacity:1; transform:translateY(0);}
+.delay-1 { transition-delay:0.15s;}
+.delay-2 { transition-delay:0.3s;}
+.delay-3 { transition-delay:0.45s;}
+.delay-4 { transition-delay:0.6s;}
+.delay-5 { transition-delay:0.75s;}
+.delay-6 { transition-delay:0.9s;}
+
+/* RESPONSIVE */
+@media(max-width:900px) { .fourthdiv { grid-template-columns: repeat(2, 1fr); } }
+@media(max-width:600px){
+  .buttons.delay-4 { grid-template-columns:1fr; }
+  .verticals { grid-template-columns:1fr; }
+  .nav-links { padding:20px; }
+  .fourthdiv { grid-template-columns: 1fr; }
+}
+a{
+  text-decoration: none;
+}
+.adx{
+  color: gold;
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo"><a href="/">E</a> Elite<span class="adx">Adx</span></div>
+  <div class="nav-links" id="navLinks">
+    <a href="/verticals">Verticals</a>
+    <a href="/service">Services</a>
+    <a href="/aboutus">About</a>
+    <a href="/#fworm" class="headerContactus">Contact Us</a>
+    <a href="/login" class="headerContactus">Login</a>
+  </div>
+  <div class="menu-icon" id="menuIcon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>8
+
+<!-- HERO -->
+<main>
+  <div class="firstdiv">
+    <span class="badge reveal">Premium Ad Network for High-Stakes Industries</span>
+    <h1 class="reveal delay-1">Unlock <span class="gold">Elite Growth</span> for Fintech, Betting & Apps</h1>
+    <p class="reveal delay-2">
+      We connect premium brands with high-value users through targeted acquisition strategies designed for maximum retention and ROI.
+    </p>
+
+    <div class="buttons reveal delay-3">
+      <a href="#fworm" class="primary">Contact Us ></a>
+      <a href="folder/service.html" class="secondary">Explore Services</a>
+    </div>
+
+    <div class="buttons delay-4 reveal">
+      <div><h2>500+</h2><span>ACTIVE PUBLISHERS</span></div>
+      <div><h2>50M+</h2><span>MONTHLY IMPRESSIONS</span></div>
+      <div><h2>120+</h2><span>GLOBAL GEOS</span></div>
+      <div><h2>ELITE</h2><span>CONVERSION RATE</span></div>
+    </div>
+  </div>
+
+  <div class="seconddiv" >
+    <h2 class="reveal delay-5">Specialized in High-Value Verticals</h2>
+    <p class="reveal delay-6">
+      We don't do everything. We specialize in industries where trust, compliance, and user quality matters most.
+    </p>
+
+    <div class="verticals reveal delay-6">
+      <div>
+        <h2>Fintech & Crypto</h2>
+        <span>High-LTV user acquisition for trading platforms, wallets, and neobanks.</span>
+      </div>
+      <div>
+        <h2>IGaming & Betting</h2>
+        <span>Compliance-focused traffic for sportsbooks and casinos in regulated markets.</span>
+      </div>
+      <div>
+        <h2>Mobile Apps</h2>
+        <span>Scale your user base with CPI/CPA campaigns optimized for retention.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="thirddiv">
+    <span class="badge reveal"> Our Expertise</span>
+    <h1 class="reveal delay-1">Performance Marketing <span class="gold">Redefined.</span></h1>
+    <p class="reveal delay-2">
+      We leverage data-driven insights to match your product with the right audience. Stop paying for empty clicks and start paying for real results.
+    </p>
+    <ul class="features-list">
+      <li>CPA, CPL, & Hybrid Models</li>
+      <li>Real-time Fraud Protection</li>
+      <li>Dedicated Account Management</li>
+      <li>Global Traffic Coverage</li>
+      <li>Advanced Targeting</li>
+      <li>24/7 Support</li>
+    </ul>
+  </div>
+
+  <div class="fourthdiv reveal delay-4">
+    <div>
+      <h2>Targeting</h2>
+      <span>We identify your ideal customer profile.</span>
+    </div>
+    <div>
+      <h2>Optimization</h2>
+      <span>Continuous testing to lower CAC.</span>
+    </div>
+    <div>
+      <h2>Scale</h2>
+      <span>Expand to new markets aggressively.</span>
+    </div>
+  </div>
+
+  <div class="dominatediv" id="fworm">
+    <h1 class="reveal delay-1">Ready to <span class="gold">Dominate</span> Your Market?</h1>
+    <span class="reveal delay-2">Fill out the form below. Our team reviews every application to ensure we can deliver exceptional results.</span>
+  </div>
+
+  <!-- FORM -->
+  <form class="form" name="contact" method="post"  id="form" data-netlify="true">
+    <input type="hidden" name="form-name" value="contact">
+    <div><input type="text" name="full-name" required id="Full-Name" placeholder="Full Name"></div>
+    <div><input type="text" name="email" required id="Email" placeholder="Email Address"></div>
+    <div><input type="text" name="phone" required id="Phone" placeholder="Phone Number"></div>
+    <div><input type="text" name="company" required id="companyname" placeholder="Company Name"></div>
+    <div>
+      <select name="country" required id="Country">
+        <option value="None">-Select Country-</option>
+        <option value="Nigeria">Nigeria</option>
+        <option value="Ghana">Ghana</option>
+        <option value="Cameroun">Cameroun</option>
+        <option value="South Africa">South Africa</option>
+      </select>
+    </div>
+    <div>
+      <select name="Industry-type" required id="Industry-Type">
+        <option value="None">-Industry Type-</option>
+        <option value="Agriculture">Agriculture</option>
+        <option value="Advertising">Advertising</option>
+        <option value="Digital Marketing">Digital Marketing</option>
+        <option value="Education">Education</option>
+        <option value="Engineering">Engineering</option>
+        <option value="Management ISV">Management ISV</option>
+        <option value="Fintech">Fintech</option>
+        <option value="Betting">Betting</option>
+        <option value="FMCG">FMCG</option>
+        <option value="Health Care">Health Care</option>
+        <option value="Information and Technology">Information and Technology</option>
+        <option value="Others">Others</option>
+      </select>
+    </div>
+    <div><button id="button" type="submit">Contact Us</button></div>
+  </form>
+  <p id="successMsg" style="display: none; color: green;">Form submitted successfully</p>
+
+  <!-- FOOTER -->
+     <!-- FOOTER -->
+  <div class="footer reveal delay-5">
+    <span class="logo">E Elite<span class="adx">Adx</span></span>
+    <span>Best traffic & advertisement platform in Africa.</span>
+
+    <div class="sections">
+      <div>
+        <span class="title">Company</span>
+        <ul>
+          <li><a href="/aboutus">About Us</a></li>
+          <li><a href="/career.html">Careers</a></li>
+          <li><a href="/partner">Partners</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="title">Legal</span>
+        <ul>
+          <li><a href="/privacypolicy">Privacy Policy</a></li>
+          <li><a href="/termsofservice">Terms of Service</a></li>
+          <li><a href="/cookie">Cookie Policy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="title">Contact Information</span>
+        <ul>
+          <li>26 Etta Agbor, Calabar</li>
+          <li>hello@eliteadx.io</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:20px; color:#cfcfcf; text-align:center;">
+      <span>© 2026 Elite Adx. All rights reserved.</span><br>
+      <a href="">facebook</a><a href="">twitter</a><a href="">instagram</a>
+    </div>
+  </div>
+</main>
+
+<script src="script.js"></script>
+
+</body>
+</html>

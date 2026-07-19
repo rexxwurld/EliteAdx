@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Terms of Service - EliteAdx</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="apple-touch-icon" href="logo.png">
+<style>
+/* RESET & BASE */
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Inter',sans-serif; background:#070724; color:white; overflow-x:hidden; position:relative; }
+html { scroll-behavior: smooth; }
+body::before {
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(700px 500px at 25% 15%, rgba(99,210,255,0.3), transparent 60%),
+    radial-gradient(600px 400px at 80% 25%, rgba(59,130,246,0.25), transparent 60%),
+    radial-gradient(500px 500px at 50% 80%, rgba(147,197,253,0.18), transparent 60%);
+  z-index:-1;
+}
+
+/* NAVBAR */
+.navbar {
+  position:fixed; top:0; left:0; width:100%; height:6.6vh;
+  display:flex; justify-content:space-between; align-items:center;
+  padding:0 24px; backdrop-filter:blur(6px);
+  background:rgba(7,7,36,0.95); z-index:50;
+}
+.logo { font-size:clamp(20px,4vw,32px); font-weight:700; }
+.logo::first-letter { background:#f5c542; color:black; padding:4px 10px; border-radius:8px; margin-right:4px; }
+.nav-links {
+  position:fixed; top:6.6vh; left:0; right:0;
+  transform:translateX(100%); background:rgba(7,7,36,0.97);
+  display:flex; flex-direction:column; padding:20px;
+  transition:transform 0.5s ease; z-index:40;
+}
+.nav-links.active { transform:translateX(0); }
+.nav-links a { text-decoration:none; color:white; padding:12px 0; font-size:clamp(14px,2vw,16px); }
+.headerContactus { background:#f5c542; color:black; padding:12px; border-radius:8px; text-align:center; margin-top:10px; font-weight:600; }
+.menu-icon { width:30px; height:25px; position:relative; cursor:pointer; z-index:100; display:flex; flex-direction:column; justify-content:center; }
+.menu-icon span { position:absolute; width:100%; height:2px; background:white; transition:all 0.3s ease; }
+.menu-icon span:nth-child(1){top:0;} .menu-icon span:nth-child(2){top:11px;} .menu-icon span:nth-child(3){top:22px;}
+.menu-icon.active span:nth-child(1){top:11px; transform:rotate(45deg);}
+.menu-icon.active span:nth-child(2){opacity:0;}
+.menu-icon.active span:nth-child(3){top:11px; transform:rotate(-45deg);}
+
+/* MAIN CONTENT */
+main { margin-top:10vh; max-width:900px; margin-left:auto; margin-right:auto; padding:20px; line-height:1.6; }
+main h1 { color:#f5c542; font-size:clamp(28px,5vw,36px); margin-bottom:20px; text-align:center;}
+main h2 { color:#f5c542; font-size:clamp(20px,3vw,28px); margin-top:30px; margin-bottom:10px;}
+main p, main li { color:#cfcfcf; font-size:clamp(15px,2vw,18px); margin-bottom:10px;}
+main ul { margin-left:20px; list-style: disc; }
+
+/* FOOTER */
+.footer {
+  display:flex; flex-direction:column; gap:30px; margin-top:60px; padding:20px;
+}
+.footer span.logo { font-size:clamp(20px,4vw,28px); font-weight:700; }
+.footer .sections { display:flex; flex-direction:column; gap:20px; }
+.footer span.title { font-weight:700; font-size:16px; color:white; display:block; margin-bottom:10px; }
+.footer ul { list-style:none; padding:0; margin:0; line-height:1.8; }
+.footer ul li { margin-bottom:8px; }
+.footer a { color:#a8a8a8; text-decoration:none; transition:color 0.3s ease; }
+.footer a:hover { color:#f5c542; }
+.footer .contact { color:#cfcfcf; }
+a{
+  text-decoration: none;
+}
+.adx{
+  color: gold;
+}
+
+/* RESPONSIVE */
+@media(max-width:600px){
+  .nav-links { padding:20px; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo"><a href="/">E</a> Elite<span class="adx">Adx</span></div>
+  <div class="nav-links" id="navLinks">
+    <a href="/verticals">Verticals</a>
+    <a href="/service">Services</a>
+    <a href="/aboutus">About</a>
+    <a href="/#fworm" class="headerContactus">Contact Us</a>
+    <a href="/login" class="headerContactus">Login</a>
+  </div>
+  <div class="menu-icon" id="menuIcon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<main>
+  <h1>Terms of Service</h1>
+  <p>Welcome to EliteAdx! We want to make sure you have a clear understanding of how you can use our services. By using EliteAdx, you agree to these friendly terms. We’ve written them in plain language, just like other trusted marketing platforms, but they’re still important.</p>
+
+  <h2>1. Using Our Services</h2>
+  <p>EliteAdx provides marketing, traffic, and performance solutions for brands. You agree to use our services responsibly and legally. No funny business, spamming, or violating laws.</p>
+
+  <h2>2. Account Responsibility</h2>
+  <p>If you create an account with us, you are responsible for keeping your login details safe. You’re also responsible for any activity on your account.</p>
+
+  <h2>3. Intellectual Property</h2>
+  <p>All content, logos, designs, and code on EliteAdx are our property or used with permission. You can’t copy, sell, or redistribute without our consent.</p>
+
+  <h2>4. Payments & Fees</h2>
+  <p>Some services may have fees. You agree to pay all applicable charges on time. We reserve the right to update prices but will always notify you in advance.</p>
+
+  <h2>5. Prohibited Activities</h2>
+  <ul>
+    <li>Using the platform for illegal activities or fraud</li>
+    <li>Spamming or sending unsolicited messages</li>
+    <li>Trying to reverse engineer our system</li>
+    <li>Sharing your account with others without permission</li>
+  </ul>
+
+  <h2>6. Termination</h2>
+  <p>We may suspend or terminate your access if you violate these terms or misuse our services, just like other reputable platforms in our space.</p>
+
+  <h2>7. Limitation of Liability</h2>
+  <p>While we work hard to provide excellent service, we aren’t liable for indirect losses or damages resulting from your use of EliteAdx.</p>
+
+  <h2>8. Changes to Terms</h2>
+  <p>We may update these terms occasionally. Continued use of our services means you accept the changes.</p>
+
+  <h2>9. Contact Us</h2>
+  <p>If you have any questions or need clarifications, just <a href="../index.html#form" style="color:#f5c542;">reach out to us</a> — we’re happy to help!</p>
+
+
+     <!-- FOOTER -->
+  <div class="footer reveal delay-5">
+    <span class="logo">E Elite<span class="adx">Adx</span></span>
+    <span>Best traffic & advertisement platform in Africa.</span>
+
+    <div class="sections">
+      <div>
+        <span class="title">Company</span>
+        <ul>
+          <li><a href="/aboutus">About Us</a></li>
+          <li><a href="/career.html">Careers</a></li>
+          <li><a href="/partner">Partners</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="title">Legal</span>
+        <ul>
+          <li><a href="/privacypolicy">Privacy Policy</a></li>
+          <li><a href="/termsofservice">Terms of Service</a></li>
+          <li><a href="/cookie">Cookie Policy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="title">Contact Information</span>
+        <ul>
+          <li>26 Etta Agbor, Calabar</li>
+          <li>hello@eliteadx.io</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:20px; color:#cfcfcf; text-align:center;">
+      <span>© 2026 Elite Adx. All rights reserved.</span><br>
+      <a href="">facebook</a><a href="">twitter</a><a href="">instagram</a>
+    </div>
+  </div>
+</main>
+<script src="script.js"></script>
+</body>
+</html>

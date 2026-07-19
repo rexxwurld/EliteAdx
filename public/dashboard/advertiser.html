@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EliteAdx — Advertiser Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/dashboard.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+</head>
+<body>
+
+<div class="sidebar-overlay"></div>
+
+<div class="shell">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">E</div>
+      <div>
+        <div class="brand-name">EliteAdx</div>
+        <div class="brand-tag">Advertiser</div>
+      </div>
+    </div>
+
+    <nav>
+      <div class="nav-section-label">Campaigns</div>
+      <div class="nav-item active" data-view="overview"><span class="nav-icon">◆</span> Overview</div>
+      <div class="nav-item" data-view="campaigns"><span class="nav-icon">▤</span> My Campaigns</div>
+      <div class="nav-item" data-view="audiences"><span class="nav-icon">◎</span> Audiences</div>
+
+      <div class="nav-section-label">Account</div>
+      <div class="nav-item" data-view="wallet"><span class="nav-icon">◈</span> Wallet</div>
+      <div class="nav-item" data-view="reports"><span class="nav-icon">▲</span> Reports</div>
+      <div class="nav-item" data-view="settings"><span class="nav-icon">⚙</span> Settings</div>
+    </nav>
+
+    <div class="sidebar-footer">
+      <div class="live-pulse"><span class="pulse-dot"></span> Live</div>
+      <div class="logout-row" id="logoutRow">⎋ Logout</div>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <!-- ================= OVERVIEW ================= -->
+    <div class="view active" id="view-overview">
+      <div class="topbar">
+        <div class="topbar-left">
+          <div class="hamburger">☰</div>
+          <div>
+            <div class="page-title">Overview</div>
+            <div class="page-sub">How are your campaigns performing right now?</div>
+          </div>
+        </div>
+        <div class="topbar-right">
+          <div class="search-box">🔍 Search…</div>
+          <div class="icon-btn">🔔<span class="badge-dot">3</span></div>
+          <div class="avatar" id="logoutBtn" style="cursor:pointer;" title="Click to sign out">AD</div>
+        </div>
+      </div>
+
+      <div class="notif-strip">
+        <div class="notif-chip"><span class="dot red"></span> Campaign updates</div>
+      </div>
+
+      <div class="qa-row">
+        <div class="qa-btn primary" id="qaCreateCampaign">➕ Create Campaign</div>
+        <div class="qa-btn" id="qaAddFunds">💳 Add Funds</div>
+        <div class="qa-btn" id="qaDuplicateCampaign">📄 Duplicate Campaign</div>
+        <div class="qa-btn" id="qaViewReports">📊 View Reports</div>
+      </div>
+
+      <div class="kpi-grid">
+        <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">📢</span></div><div class="kpi-value" id="kpi-active-campaigns">—</div><div class="kpi-label">Active Campaigns</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">💰</span></div><div class="kpi-value" id="kpi-total-spend">—</div><div class="kpi-label">Total Spend</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">👀</span></div><div class="kpi-value" id="kpi-total-impressions">—</div><div class="kpi-label">Total Impressions</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">🖱️</span></div><div class="kpi-value" id="kpi-total-clicks">—</div><div class="kpi-label">Total Clicks</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">📈</span></div><div class="kpi-value" id="kpi-average-ctr">—</div><div class="kpi-label">Average CTR</div></div>
+        <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">🎯</span></div><div class="kpi-value" id="kpi-avg-cpc">—</div><div class="kpi-label">Average CPC</div></div>
+      </div>
+
+      <div class="charts-row">
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Spend<span class="sub">last 30 days</span></div></div>
+          <div class="chart-wrap"><canvas id="chartSpend"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Clicks<span class="sub">per day</span></div></div>
+          <div class="chart-wrap"><canvas id="chartClicks"></canvas></div>
+        </div>
+      </div>
+
+      <div class="charts-row-2">
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Impressions<span class="sub">daily volume</span></div></div>
+          <div class="chart-wrap"><canvas id="chartImpressions"></canvas></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">CTR Trend<span class="sub">daily</span></div></div>
+          <div class="chart-wrap"><canvas id="chartCTR"></canvas></div>
+        </div>
+      </div>
+
+      <div class="panel">
+        <div class="panel-header">
+          <div class="panel-title">Recent Activity</div>
+          <div class="tabs-row">
+            <button class="tab-btn active" onclick="switchActivity(this,'act-campaigns')">Campaigns</button>
+            <button class="tab-btn" onclick="switchActivity(this,'act-approvals')">Approvals</button>
+            <button class="tab-btn" onclick="switchActivity(this,'act-payments')">Payments</button>
+          </div>
+        </div>
+
+        <div id="act-campaigns" class="activity-table">
+          <table>
+            <thead><tr><th>Campaign</th><th>Vertical</th><th>Budget</th><th>Status</th></tr></thead>
+            <tbody id="act-campaigns-body"></tbody>
+          </table>
+        </div>
+
+        <div id="act-approvals" class="activity-table" style="display:none;">
+          <table>
+            <thead><tr><th>Campaign</th><th>Reason</th><th>Reviewed</th><th>Decision</th></tr></thead>
+            <tbody id="act-approvals-body"></tbody>
+          </table>
+        </div>
+
+        <div id="act-payments" class="activity-table" style="display:none;">
+          <table>
+            <thead><tr><th>Type</th><th>Amount</th><th>Method</th><th>Status</th></tr></thead>
+            <tbody><tr class="empty-row"><td colspan="4">No data yet</td></tr></tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="panel section-gap">
+        <div class="panel-header">
+          <div class="panel-title">My Campaigns</div>
+          <span class="panel-link" onclick="document.querySelector('.nav-item[data-view=campaigns]').click()">View all campaigns →</span>
+        </div>
+        <table>
+          <thead><tr><th>Campaign</th><th>Status</th><th>Budget</th><th>Spent</th><th>Clicks</th><th>CTR</th></tr></thead>
+          <tbody id="my-campaigns-body"></tbody>
+        </table>
+      </div>
+
+      <div class="perf-grid">
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Top Performing Campaigns</div></div>
+          <div id="top-campaigns"></div>
+        </div>
+        <div class="panel">
+          <div class="panel-header"><div class="panel-title">Top Audiences</div></div>
+          <div class="stub" style="padding:24px 0;">
+            <div class="stub-icon">◎</div>
+            Audience-level performance isn't tracked yet.
+          </div>
+        </div>
+      </div>
+
+      <div class="panel section-gap">
+        <div class="panel-header"><div class="panel-title">Wallet Summary</div></div>
+        <div class="fin-grid" style="margin-top:0;margin-bottom:0;">
+          <div class="kpi-card fin-card"><div class="kpi-value" id="w-balance"></div><div class="kpi-label">Wallet Balance</div></div>
+          <div class="kpi-card fin-card"><div class="kpi-value" id="w-spent"></div><div class="kpi-label">Total Spent</div></div>
+          <div class="kpi-card fin-card"><div class="kpi-value mono" style="color:var(--amber);" id="w-pending"></div><div class="kpi-label">Pending Charges</div></div>
+          <div class="kpi-card fin-card"><div class="kpi-value" style="color:var(--teal);" id="w-month"></div><div class="kpi-label">This Month Spend</div></div>
+          <div class="kpi-card fin-card"><div class="kpi-value" id="w-autoreload"></div><div class="kpi-label">Auto-reload</div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ================= CAMPAIGNS ================= -->
+    <div class="view" id="view-campaigns">
+      <div class="topbar">
+        <div>
+          <div class="page-title">My Campaigns</div>
+          <div class="page-sub">All campaigns you're running</div>
+        </div>
+        <div class="topbar-right">
+          <div class="qa-btn primary" style="margin:0;" id="createCampaignBtn">➕ Create Campaign</div>
+        </div>
+      </div>
+      <div class="panel">
+        <table>
+          <thead><tr><th>Campaign</th><th>Status</th><th>Budget</th><th>Spent</th><th>Clicks</th><th>Impressions</th><th>CTR</th></tr></thead>
+          <tbody id="campaigns-view-body"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ================= WALLET ================= -->
+    <div class="view" id="view-wallet">
+      <div class="topbar">
+        <div>
+          <div class="page-title">Wallet</div>
+          <div class="page-sub">Funding, spend history, and auto-reload</div>
+        </div>
+        <div class="topbar-right">
+          <div class="qa-btn primary" style="margin:0;" id="walletAddFundsBtn">💳 Add Funds</div>
+        </div>
+      </div>
+      <div class="panel">
+        <div class="panel-header"><div class="panel-title">Transaction History</div></div>
+        <table>
+          <thead><tr><th>Date</th><th>Type</th><th>Amount</th><th>Method</th><th>Status</th></tr></thead>
+          <tbody><tr class="empty-row"><td colspan="5">No data yet</td></tr></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ================= STUBS ================= -->
+    <div class="view" id="view-audiences"><div class="topbar"><div><div class="page-title">Audiences</div><div class="page-sub">Targeting and saved audience segments</div></div></div><div class="panel"><div class="stub"><div class="stub-icon">◎</div><div class="stub-title">Audience targeting</div>Build and save audience segments by location, device, and interest here.</div></div></div>
+    <div class="view" id="view-reports"><div class="topbar"><div><div class="page-title">Reports</div><div class="page-sub">Exportable performance breakdowns</div></div></div><div class="panel"><div class="stub"><div class="stub-icon">▲</div><div class="stub-title">Campaign reports</div>Download performance by campaign, creative, and audience here.</div></div></div>
+    <div class="view" id="view-settings"><div class="topbar"><div><div class="page-title">Settings</div><div class="page-sub">Account and billing preferences</div></div></div><div class="panel"><div class="stub"><div class="stub-icon">⚙</div><div class="stub-title">Account settings</div>Billing details, notification preferences, and team access live here.</div></div></div>
+
+  </main>
+</div>
+
+<!-- ================= CREATE CAMPAIGN MODAL ================= -->
+<div id="campaignModalOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;align-items:center;justify-content:center;">
+  <div class="panel" style="width:min(440px, 92vw);max-height:90vh;overflow:auto;">
+    <div class="panel-header">
+      <div class="panel-title">Create Campaign</div>
+      <span class="panel-link" id="campaignModalClose" style="cursor:pointer;">✕</span>
+    </div>
+    <form id="campaignForm" style="display:flex;flex-direction:column;gap:12px;padding:4px 0;">
+      <label>Title
+        <input type="text" id="cf-title" required style="width:100%;padding:8px;border-radius:6px;border:1px solid var(--border,#333);background:var(--bg-alt,#11151b);color:inherit;">
+      </label>
+      <label>Vertical
+        <input type="text" id="cf-vertical" required placeholder="e.g. Fintech" style="width:100%;padding:8px;border-radius:6px;border:1px solid var(--border,#333);background:var(--bg-alt,#11151b);color:inherit;">
+      </label>
+      <label>Budget (₦)
+        <input type="number" id="cf-budget" required min="1" style="width:100%;padding:8px;border-radius:6px;border:1px solid var(--border,#333);background:var(--bg-alt,#11151b);color:inherit;">
+      </label>
+      <label>Start Date
+        <input type="date" id="cf-start" required style="width:100%;padding:8px;border-radius:6px;border:1px solid var(--border,#333);background:var(--bg-alt,#11151b);color:inherit;">
+      </label>
+      <label>End Date
+        <input type="date" id="cf-end" required style="width:100%;padding:8px;border-radius:6px;border:1px solid var(--border,#333);background:var(--bg-alt,#11151b);color:inherit;">
+      </label>
+      <div id="campaignFormError" style="color:#e5484d;display:none;font-size:13px;"></div>
+      <button type="submit" class="qa-btn primary" style="margin:0;justify-content:center;">Submit for Review</button>
+    </form>
+  </div>
+</div>
+
+<!-- ================= ADD FUNDS MODAL ================= -->
+<div id="depositModalOverlay" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:999;align-items:center;justify-content:center;">
+  <div class="panel" style="width:min(380px, 92vw);">
+    <div class="panel-header">
+      <div class="panel-title">Add Funds</div>
+      <span class="panel-link" id="depositModalClose" style="cursor:pointer;">✕</span>
+    </div>
+    <form id="depositForm" style="display:flex;flex-direction:column;gap:12px;padding:4px 0;">
+      <label>Amount (₦)
+        <input type="number" id="df-amount" required min="100" style="width:100%;padding:8px;border-radius:6px;border:1px solid var(--border,#333);background:var(--bg-alt,#11151b);color:inherit;">
+      </label>
+      <div id="depositFormError" style="color:#e5484d;display:none;font-size:13px;"></div>
+      <button type="submit" class="qa-btn primary" style="margin:0;justify-content:center;">Continue to Payment</button>
+    </form>
+  </div>
+</div>
+
+<script src="js/advertiser.js"></script>
+</body>
+</html>

@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EliteAdx — Admin Control Room</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="css/dashboard.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.0/chart.umd.min.js"></script>
+
+</head>
+<body>
+
+<div class="sidebar-overlay"></div>
+
+<div class="shell">
+
+<aside class="sidebar">
+
+<div class="brand">
+<div class="brand-mark">E</div>
+<div>
+<div class="brand-name">EliteAdx</div>
+<div class="brand-tag">Control Room</div>
+</div>
+</div>
+
+<nav>
+<div class="nav-section-label">Platform</div>
+<div class="nav-item active" data-view="overview"><span class="nav-icon">◆</span> Overview</div>
+<div class="nav-item" data-view="campaigns"><span class="nav-icon">▤</span> Campaigns</div>
+<div class="nav-item" data-view="users"><span class="nav-icon">◎</span> Users</div>
+<div class="nav-item" data-view="payments"><span class="nav-icon">◈</span> Payments</div>
+<div class="nav-item" data-view="analytics"><span class="nav-icon">▲</span> Analytics</div>
+
+<div class="nav-section-label">Admin</div>
+<div class="nav-item" data-view="moderation"><span class="nav-icon">⚑</span> Moderation</div>
+<div class="nav-item" data-view="settings"><span class="nav-icon">⚙</span> Settings</div>
+</nav>
+
+<div class="sidebar-footer">
+<div class="live-pulse"><span class="pulse-dot"></span> Live</div>
+<div class="status-card">All systems operational</div>
+<div class="logout-row" id="logoutRow">⎋ Logout</div>
+</div>
+
+</aside>
+
+<main class="main">
+
+<!-- ================= OVERVIEW ================= -->
+<div class="view active" id="view-overview">
+
+<div class="topbar">
+  <div class="topbar-left">
+    <div class="hamburger">☰</div>
+    <div>
+      <div class="page-title">Overview</div>
+      <div class="page-sub">How is your advertising platform performing right now?</div>
+    </div>
+  </div>
+  <div class="topbar-right">
+    <div class="search-box">🔍 <input type="text" placeholder="Search..." style="background:none;border:none;color:inherit;outline:none;width:100%;"></div>
+    <div class="icon-btn">🔔<span class="badge-dot">0</span></div>
+    <div class="avatar" title="Profile">--</div>
+  </div>
+</div>
+
+<div class="notif-strip">
+  <div class="notif-chip"><span class="dot red"></span> Campaign approvals</div>
+  <div class="notif-chip"><span class="dot amber"></span> Pending withdrawals</div>
+  <div class="notif-chip"><span class="dot teal"></span> New registrations</div>
+</div>
+
+<div class="qa-row">
+  <div class="qa-btn primary">➕ Create Campaign</div>
+  <div class="qa-btn">👤 Add User</div>
+  <div class="qa-btn" id="qaApproveWithdrawal">💳 Approve Withdrawal</div>
+  <div class="qa-btn">📊 View Reports</div>
+</div>
+
+<div class="kpi-grid">
+  <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">👥</span></div><div class="kpi-value" id="kpi-total-users">—</div><div class="kpi-label">Total Users</div></div>
+  <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">📢</span></div><div class="kpi-value" id="kpi-active-campaigns">—</div><div class="kpi-label">Active Campaigns</div></div>
+  <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">💰</span></div><div class="kpi-value" id="kpi-total-revenue">—</div><div class="kpi-label">Total Revenue</div></div>
+  <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">👀</span></div><div class="kpi-value" id="kpi-total-impressions">—</div><div class="kpi-label">Total Impressions</div></div>
+  <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">🖱</span></div><div class="kpi-value" id="kpi-total-clicks">—</div><div class="kpi-label">Total Clicks</div></div>
+  <div class="kpi-card"><div class="kpi-top"><span class="kpi-icon">📈</span></div><div class="kpi-value" id="kpi-average-ctr">—</div><div class="kpi-label">Average CTR</div></div>
+</div>
+
+<div class="charts-row">
+  <div class="panel">
+    <div class="panel-header"><div class="panel-title">Revenue<span class="sub">Last 30 days</span></div></div>
+    <div class="chart-wrap"><canvas id="chartRevenue"></canvas></div>
+  </div>
+  <div class="panel">
+    <div class="panel-header"><div class="panel-title">New Users</div></div>
+    <div class="chart-wrap"><canvas id="chartUsers"></canvas></div>
+  </div>
+</div>
+
+<div class="charts-row-2">
+  <div class="panel">
+    <div class="panel-header"><div class="panel-title">Impressions</div></div>
+    <div class="chart-wrap"><canvas id="chartImpressions"></canvas></div>
+  </div>
+  <div class="panel">
+    <div class="panel-header"><div class="panel-title">Clicks</div></div>
+    <div class="chart-wrap"><canvas id="chartClicks"></canvas></div>
+  </div>
+</div>
+
+<div class="panel">
+  <div class="panel-header">
+    <div class="panel-title">Recent Activity</div>
+    <div class="tabs-row">
+      <button class="tab-btn active" onclick="switchActivity(this,'act-users')">Users</button>
+      <button class="tab-btn" onclick="switchActivity(this,'act-campaigns')">Campaigns</button>
+      <button class="tab-btn" onclick="switchActivity(this,'act-payments')">Payments</button>
+      <button class="tab-btn" onclick="switchActivity(this,'act-approvals')">Approvals</button>
+    </div>
+  </div>
+
+  <div id="act-users" class="activity-table">
+    <table>
+      <thead><tr><th>User</th><th>Email</th><th>Role</th><th>Joined</th><th>Status</th></tr></thead>
+      <tbody id="act-users-body"></tbody>
+    </table>
+  </div>
+
+  <div id="act-campaigns" class="activity-table" style="display:none">
+    <table>
+      <thead><tr><th>Campaign</th><th>Advertiser</th><th>Vertical</th><th>Created</th><th>Status</th></tr></thead>
+      <tbody id="act-campaigns-body"></tbody>
+    </table>
+  </div>
+
+  <div id="act-payments" class="activity-table" style="display:none">
+    <table>
+      <thead><tr><th>User</th><th>Type</th><th>Amount</th><th>Date</th><th>Status</th></tr></thead>
+      <tbody id="act-payments-body"><tr class="empty-row"><td colspan="5">No data yet</td></tr></tbody>
+    </table>
+  </div>
+
+  <div id="act-approvals" class="activity-table" style="display:none">
+    <table>
+      <thead><tr><th>Campaign</th><th>Advertiser</th><th>Submitted</th><th>Status</th></tr></thead>
+      <tbody id="act-approvals-body"><tr class="empty-row"><td colspan="4">No data yet</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<div class="panel section-gap">
+  <div class="panel-header"><div class="panel-title">Campaign Overview</div></div>
+  <table>
+    <thead><tr><th>Campaign</th><th>Advertiser</th><th>Status</th><th>Budget</th><th>Clicks</th><th>CTR</th></tr></thead>
+    <tbody id="campaign-overview-body"></tbody>
+  </table>
+</div>
+
+<div class="perf-grid">
+  <div class="panel">
+    <div class="panel-header"><div class="panel-title">Top Advertisers</div></div>
+    <div id="top-advertisers"></div>
+  </div>
+  <div class="panel">
+    <div class="panel-header"><div class="panel-title">Top Publishers</div></div>
+    <div id="top-publishers"></div>
+  </div>
+</div>
+
+<div class="panel section-gap">
+  <div class="panel-header"><div class="panel-title">Financial Summary</div></div>
+  <div class="fin-grid">
+    <div class="kpi-card fin-card"><div class="kpi-value" id="fin-deposits"></div><div class="kpi-label">Total Deposits</div></div>
+    <div class="kpi-card fin-card"><div class="kpi-value" id="fin-withdrawals"></div><div class="kpi-label">Total Withdrawals</div></div>
+    <div class="kpi-card fin-card"><div class="kpi-value mono" id="fin-pending"></div><div class="kpi-label">Pending Withdrawals</div></div>
+    <div class="kpi-card fin-card"><div class="kpi-value" id="fin-profit"></div><div class="kpi-label">Platform Profit</div></div>
+    <div class="kpi-card fin-card"><div class="kpi-value" id="fin-monthly"></div><div class="kpi-label">Monthly Earnings</div></div>
+  </div>
+</div>
+
+<div class="panel section-gap">
+  <div class="panel-header"><div class="panel-title">Moderation Queue</div></div>
+  <div class="mod-grid">
+    <div class="kpi-card mod-card"><div class="mod-count" id="mod-pending">0</div><div class="mod-label">Pending Approvals</div></div>
+    <div class="kpi-card mod-card"><div class="mod-count" id="mod-flagged">0</div><div class="mod-label">Flagged Ads</div></div>
+    <div class="kpi-card mod-card"><div class="mod-count" id="mod-suspended">0</div><div class="mod-label">Suspended Users</div></div>
+    <div class="kpi-card mod-card"><div class="mod-count" id="mod-tickets">0</div><div class="mod-label">Support Tickets</div></div>
+  </div>
+</div>
+
+</div>
+
+<!-- ================= CAMPAIGNS ================= -->
+<div class="view" id="view-campaigns">
+  <div class="topbar">
+    <div><div class="page-title">Campaigns</div><div class="page-sub">Manage every campaign on the platform</div></div>
+    <div class="topbar-right"><button class="qa-btn primary" id="createCampaignBtn">➕ Create Campaign</button></div>
+  </div>
+  <div class="panel">
+    <div class="panel-header"><div class="panel-title">All Campaigns</div></div>
+    <table>
+      <thead><tr><th>Name</th><th>Advertiser</th><th>Status</th><th>Budget</th><th>Spent</th><th>CTR</th><th>Actions</th></tr></thead>
+      <tbody id="campaigns-view-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ================= USERS ================= -->
+<div class="view" id="view-users">
+  <div class="topbar"><div><div class="page-title">Users</div><div class="page-sub">Advertisers & Publishers</div></div></div>
+  <div class="panel">
+    <table>
+      <thead><tr><th>Name</th><th>Email</th><th>Role</th><th>Status</th><th>Joined</th></tr></thead>
+      <tbody id="users-view-body"><tr class="empty-row"><td colspan="5">No data yet</td></tr></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ================= PAYMENTS ================= -->
+<div class="view" id="view-payments">
+  <div class="topbar"><div><div class="page-title">Payments</div><div class="page-sub">Deposits & Withdrawals</div></div></div>
+  <div class="panel">
+    <table>
+      <thead><tr><th>User</th><th>Type</th><th>Amount</th><th>Status</th><th>Date</th><th>Actions</th></tr></thead>
+      <tbody id="payments-view-body"></tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ================= ANALYTICS ================= -->
+<div class="view" id="view-analytics">
+  <div class="topbar"><div><div class="page-title">Analytics</div><div class="page-sub">Platform insights</div></div></div>
+  <div class="charts-row">
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">Revenue Trend</div></div>
+      <canvas id="analyticsRevenueChart"></canvas>
+    </div>
+    <div class="panel">
+      <div class="panel-header"><div class="panel-title">Campaign Performance</div></div>
+      <canvas id="analyticsCampaignChart"></canvas>
+    </div>
+  </div>
+</div>
+
+<!-- ================= MODERATION ================= -->
+<div class="view" id="view-moderation">
+  <div class="topbar"><div><div class="page-title">Moderation</div><div class="page-sub">Review platform activities</div></div></div>
+
+  <div class="panel">
+    <div class="panel-header">
+      <div class="panel-title">Moderation Queue</div>
+      <div class="tabs-row">
+        <button class="tab-btn active" onclick="switchActivity(this,'mod-pending-campaigns')">Pending Campaigns</button>
+        <button class="tab-btn" onclick="switchActivity(this,'mod-flagged-ads')">Flagged Ads</button>
+        <button class="tab-btn" onclick="switchActivity(this,'mod-suspended-users')">Suspended Users</button>
+      </div>
+    </div>
+
+    <div id="mod-pending-campaigns" class="activity-table">
+      <table>
+        <thead><tr><th>Campaign</th><th>Advertiser</th><th>Submitted</th><th>Actions</th></tr></thead>
+        <tbody id="mod-pending-campaigns-body"><tr class="empty-row"><td colspan="4">No data yet</td></tr></tbody>
+      </table>
+    </div>
+
+    <div id="mod-flagged-ads" class="activity-table" style="display:none">
+      <table>
+        <thead><tr><th>Ad</th><th>Campaign</th><th>Publisher</th><th>Reason</th></tr></thead>
+        <tbody id="mod-flagged-ads-body"><tr class="empty-row"><td colspan="4">No data yet</td></tr></tbody>
+      </table>
+    </div>
+
+    <div id="mod-suspended-users" class="activity-table" style="display:none">
+      <table>
+        <thead><tr><th>Name</th><th>Email</th><th>Role</th></tr></thead>
+        <tbody id="mod-suspended-users-body"><tr class="empty-row"><td colspan="3">No data yet</td></tr></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ================= SETTINGS ================= -->
+<div class="view" id="view-settings">
+  <div class="topbar"><div><div class="page-title">Settings</div><div class="page-sub">Platform configuration</div></div></div>
+  <div class="panel">
+    <div class="stub">
+      <div class="stub-icon">⚙</div>
+      <div class="stub-title">Platform Settings</div>
+      Settings will be loaded dynamically.
+    </div>
+  </div>
+</div>
+
+</main>
+</div>
+
+<script src="js/admin.js"></script>
+</body>
+</html>

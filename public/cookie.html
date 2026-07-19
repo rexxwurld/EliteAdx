@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cookie Policy - EliteAdx</title>
+
+<!-- GOOGLE FONT -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="icon" href="logo.png" type="image/png">
+<link rel="apple-touch-icon" href="logo.png">
+
+<style>
+/* RESET & BASE */
+* { margin:0; padding:0; box-sizing:border-box; }
+body{
+  font-family:'Inter', sans-serif;
+  background:#070724;
+  color:white;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+a{ color:#f5c542; text-decoration:none; }
+a:hover{ text-decoration:underline; }
+
+/* NAVBAR */
+.navbar{
+  position:fixed;
+  top:0; left:0;
+  width:100%;
+  height:6.6vh;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  padding:0 24px;
+  background:rgba(7,7,36,0.95);
+  backdrop-filter:blur(6px);
+  z-index:50;
+}
+.logo{
+  font-size:clamp(20px,4vw,32px);
+  font-weight:700;
+}
+.logo::first-letter{
+  background:#f5c542;
+  color:black;
+  padding:4px 10px;
+  border-radius:8px;
+  margin-right:4px;
+}
+.nav-links{
+  position:fixed;
+  top:6.6vh;
+  left:0; right:0;
+  background:#070724;
+  display:flex;
+  flex-direction:column;
+  padding:20px;
+  transform:translateX(100%);
+  transition:0.4s ease;
+}
+.nav-links.active{ transform:translateX(0); }
+.nav-links a{ color:white; padding:12px 0; text-decoration:none; }
+.headerContactus{
+  background:#f5c542; color:black; padding:12px; border-radius:8px;
+  margin-top:10px; text-align:center; font-weight:600;
+}
+/* HAMBURGER */
+.menu-icon{ width:30px; height:25px; position:relative; cursor:pointer; }
+.menu-icon span{
+  position:absolute; width:100%; height:2px; background:white; transition:0.3s;
+}
+.menu-icon span:nth-child(1){top:0;}
+.menu-icon span:nth-child(2){top:11px;}
+.menu-icon span:nth-child(3){top:22px;}
+.menu-icon.active span:nth-child(1){top:11px; transform:rotate(45deg);}
+.menu-icon.active span:nth-child(2){opacity:0;}
+.menu-icon.active span:nth-child(3){top:11px; transform:rotate(-45deg);}
+
+/* MAIN CONTENT */
+main{ margin-top:10vh; padding:20px; max-width:900px; margin-left:auto; margin-right:auto; }
+h1,h2,h3{ color:#f5c542; margin-top:20px; }
+p{ margin-top:10px; margin-bottom:10px; }
+ul, ol{ margin-left:20px; margin-top:10px; margin-bottom:10px; }
+
+/* FOOTER */
+.footer {
+  display:flex; flex-direction:column; gap:30px; margin-top:60px; padding:20px;
+}
+.footer span.logo { font-size:clamp(20px,4vw,28px); font-weight:700; }
+.footer .sections { display:flex; flex-direction:column; gap:20px; }
+.footer span.title { font-weight:700; font-size:16px; color:white; display:block; margin-bottom:10px; }
+.footer ul { list-style:none; padding:0; margin:0; line-height:1.8; }
+.footer ul li { margin-bottom:8px; }
+.footer a { color:#a8a8a8; text-decoration:none; transition:color 0.3s ease; }
+.footer a:hover { color:#f5c542; }
+
+a{ text-decoration: none; }
+.adx{ color: gold; }
+
+/* RESPONSIVE */
+@media(max-width:600px){ .nav-links{ padding:20px; } }
+</style>
+</head>
+<body>
+
+<!-- NAVBAR -->
+<nav class="navbar">
+  <div class="logo"><a href="/">E</a> Elite<span class="adx">Adx</span></div>
+  <div class="nav-links" id="navLinks">
+    <a href="/verticals">Verticals</a>
+    <a href="/service">Services</a>
+    <a href="/aboutus">About</a>
+    <a href="/#fworm" class="headerContactus">Contact Us</a>
+    <a href="/login" class="headerContactus">Login</a>
+  </div>
+  <div class="menu-icon" id="menuIcon">
+    <span></span>
+    <span></span>
+    <span></span>
+  </div>
+</nav>
+
+<main>
+  <h1>Cookie Policy</h1>
+  <p><strong>Last updated:</strong> January 2026</p>
+
+  <h2>Overview</h2>
+  <p>Cookies help us give you a smooth, relevant experience on EliteAdx. This page explains in plain language what cookies we use, why, and how you can control them. We keep it simple, just like our <a href="termsofservice.html">Terms of Service</a> and <a href="privacypolicy.html">Privacy Policy</a>.</p>
+
+  <h2>1. What Are Cookies?</h2>
+  <p>Cookies are small text files stored on your device that remember your preferences or activity on our site. They do not personally identify you.</p>
+
+  <h2>2. Cookies We Use</h2>
+  <ul>
+    <li><strong>Essential Cookies:</strong> Required for the website to work (e.g., login status).</li>
+    <li><strong>Preference Cookies:</strong> Remember your language or display preferences.</li>
+    <li><strong>Analytics Cookies:</strong> Help us understand site usage and improve performance.</li>
+    <li><strong>Advertising Cookies:</strong> Allow us to show relevant ads and track conversions (all anonymous).</li>
+  </ul>
+
+  <h2>3. How We Use Cookies</h2>
+  <ul>
+    <li>Provide core website functionality</li>
+    <li>Remember your preferences for a better experience</li>
+    <li>Measure and analyze ad performance for advertisers</li>
+    <li>Deliver relevant content and ads</li>
+  </ul>
+
+  <h2>4. Managing Cookies</h2>
+  <p>You can control or delete cookies via your browser settings. Most browsers allow you to block cookies entirely, delete individual cookies, or be prompted when a cookie is set.</p>
+
+  <h2>5. Third-Party Cookies</h2>
+  <p>We sometimes allow third-party services (like ad networks) to use cookies on our site to help with analytics and ad targeting. These cookies are anonymous, and we do not share your personal information with them.</p>
+
+  <h2>6. Your Choices</h2>
+  <p>You can always adjust your browser settings to block cookies or remove them. Disabling certain cookies may affect some site features, but the site will still work.</p>
+
+  <h2>7. Updates</h2>
+  <p>We may update this Cookie Policy occasionally. Continued use of our site indicates your agreement with any changes.</p>
+
+
+<!-- FOOTER -->
+  <!-- FOOTER -->
+  <div class="footer reveal delay-5">
+    <span class="logo">E Elite<span class="adx">Adx</span></span>
+    <span>Best traffic & advertisement platform in Africa.</span>
+
+    <div class="sections">
+      <div>
+        <span class="title">Company</span>
+        <ul>
+          <li><a href="/aboutus">About Us</a></li>
+          <li><a href="/career.html">Careers</a></li>
+          <li><a href="/partner">Partners</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="title">Legal</span>
+        <ul>
+          <li><a href="/privacypolicy">Privacy Policy</a></li>
+          <li><a href="/termsofservice">Terms of Service</a></li>
+          <li><a href="/cookie">Cookie Policy</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <span class="title">Contact Information</span>
+        <ul>
+          <li>26 Etta Agbor, Calabar</li>
+          <li>hello@eliteadx.io</li>
+        </ul>
+      </div>
+    </div>
+
+    <div style="margin-top:20px; color:#cfcfcf; text-align:center;">
+      <span>© 2026 Elite Adx. All rights reserved.</span><br>
+      <a href="">facebook</a><a href="">twitter</a><a href="">instagram</a>
+    </div>
+  </div>
+</main>
+
+
+<script src="script.js"></script>
+</body>
+</html>
